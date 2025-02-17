@@ -82,7 +82,7 @@ function renderTable(){//függvényt létrehozzuk
         row.appendChild(kepviselok1)//hozzáadom a row elemhez a kepviselok1 cellát
 
         if(currentElement.kepviselok2 !== undefined){//ha a kepviselok2 tartalmaz értéket akkor létrehozzuk a kepviselok2 cellát
-        console.log(currentElement.kepviselok2)
+        console.log(currentElement.kepviselok2)//debugger
         const kepviselok2 = document.createElement('td');//létrehozunk egy kepviselok2 nevű elemet
         kepviselok2.innerHTML = currentElement.kepviselok2;//A cella tartalmához hozzá adjuk a block szinten definiált változót
         row.appendChild(kepviselok2)//hozzáadom a row elemhez a kepviselok2 cellát
@@ -103,17 +103,17 @@ form.addEventListener('submit', function(e){
     const HTMLElementIdoszak = document.getElementById('ido')//meghívunk egy elementet ID alapján
     const HTMLElementTudos1 = document.getElementById('tudos1')//meghívunk egy elementet ID alapján
     const HTMLElementTudos2 = document.getElementById('tudos2')//meghívunk egy elementet ID alapján
+    if(simpleValidation(HTMLElementTudos1,HTMLElementTudos2)){//ha a simpleValidation valid értéke igaz akkor belép
+        const fizikaValue = HTMLElementFizika.value//az IDval meghívott értéket berakom egy lokális változóba
+        const idoszakValue = HTMLElementIdoszak.value//a IDval meghívott értéket berakom egy lokális változóba
+        const tudos1Value = HTMLElementTudos1.value//a IDval meghívott értéket berakom egy lokális változóba
+        const tudos2Value = HTMLElementTudos2.value//a IDval meghívott értéket berakom egy lokális változóba
 
-    const fizikaValue = HTMLElementFizika.value//az IDval meghívott értéket berakom egy lokális változóba
-    const idoszakValue = HTMLElementIdoszak.value//a IDval meghívott értéket berakom egy lokális változóba
-    const tudos1Value = HTMLElementTudos1.value//a IDval meghívott értéket berakom egy lokális változóba
-    const tudos2Value = HTMLElementTudos2.value//a IDval meghívott értéket berakom egy lokális változóba
 
-
-    const thisForm = e.currentTarget; // Az event currentTarget tulajdonsaga a formunkat tartalmazza, ezt eltaroljuk egy lokalis valtozoba 
-    const errorHtmlElements = thisForm.querySelectorAll('.error'); // A formon beluli osszes error classal rendelkezo html elementet elkerjuk
-    for(const errorElement of errorHtmlElements){ // Vegigiteralunk a visszakapott errorhtmlelementeken
-        errorElement.innerHTML = ''; // toroljuk az aktualis elem tartalmat
+        const thisForm = e.currentTarget; // Az event currentTarget tulajdonsaga a formunkat tartalmazza, ezt eltaroljuk egy lokalis valtozoba 
+        const errorHtmlElements = thisForm.querySelectorAll('.error'); // A formon beluli osszes error classal rendelkezo html elementet elkerjuk
+        for(const errorElement of errorHtmlElements){ // Vegigiteralunk a visszakapott errorhtmlelementeken
+            errorElement.innerHTML = ''; // toroljuk az aktualis elem tartalmat
         }
         const newElement = {
             terulete: fizikaValue,// az uj objektum terulete erteke a fizikaValue lesz
@@ -121,10 +121,11 @@ form.addEventListener('submit', function(e){
             kepviselok1: tudos1Value,// az uj objektum kepviselok1 erteke a tudos1Value lesz
             kepviselok2: tudos2Value// az uj objektum kepviselok2 erteke a tudos2Value lesz
         }
-    if(validatefield(HTMLElementFizika, HTMLElementIdoszak)){//ha a validáció sikeres akkor hozzá adjuk az elemet a táblázathoz ha nem akkor nem
-        fizikusok.push(newElement)//hozzáadom az arrayhez az új objektumot
-        tabla.innerHTML = "";//kiürítem a táblázatott
-        renderTable()//A táblázatott újrameghívom hogy fríssítsem
+        if(validatefield(HTMLElementFizika, HTMLElementIdoszak)){//ha a validáció sikeres akkor hozzá adjuk az elemet a táblázathoz ha nem akkor nem
+            fizikusok.push(newElement)//hozzáadom az arrayhez az új objektumot
+            tabla.innerHTML = "";//kiürítem a táblázatott
+            renderTable()//A táblázatott újrameghívom hogy fríssítsem
+        }
     }
 })
 
@@ -134,10 +135,10 @@ function validatefield(HTMLElementFizika,HTMLElementIdoszak){//létrehozzuk a va
     /**
      * kiüríti a error innerhtml-t
      */
-    const error = form.querySelectorAll('.error');
-    for(const errors of error)
+    const error = form.querySelectorAll('.error');//kiválasztjuk az összes elemet amely tartalmazza az error elemet
+    for(const errors of error)//végig iterálunk az errorokon
     {
-    errors.innerHTML = "";
+    errors.innerHTML = "";//kiürítjük a tartalmát
     }
     /**
      * ha a doboz ki van pipálva de nem adtuk meg a 2. mű címét akkor egy errort ír ki
@@ -146,9 +147,9 @@ function validatefield(HTMLElementFizika,HTMLElementIdoszak){//létrehozzuk a va
         const parentElement = HTMLElementFizika.parentElement;//lekérjük az inputnak parent elementjét
         const error = parentElement.querySelector('.error');//kiválasztjuk azt az elementet amely tartalmazza az error osztályt
         if (error !== null) {//egnézzük hogy az error üres-e
-            error.innerHTML = "Kötelező megadni a fizikai területét az embernek!";//eroor innerhtml-jébe belerakunk egy string értéket
+            error.innerHTML = "Kötelező megadni a fizikai területét az embernek!";//error innerhtml-jébe belerakunk egy string értéket
         }
-        valid = false;//a valid értékét falsera csináljuk
+        valid = false;//a valid értékét falsera rakjuk
     }
     /**
      * ha a doboz nincs ki pipálva de meg adtuk a 2. mű címét akkor egy errort ír ki
@@ -156,10 +157,37 @@ function validatefield(HTMLElementFizika,HTMLElementIdoszak){//létrehozzuk a va
     if (HTMLElementIdoszak.value == "") {//megnézi hogy az értéke üres ha igen akkor belép
         const parentElement = HTMLElementIdoszak.parentElement;//lekérjük az inputnak parent elementjét
         const error = parentElement.querySelector('.error');//kiválasztjuk azt az elementet amely tartalmazza az error osztályt
-        if (error !== null) {//egnézzük hogy az error üres-e
+        if (error !== null) {//megnézzük hogy az error üres-e
             error.innerHTML = "Az időszakot kötelező megadni!";//eroor innerhtml-jébe belerakunk egy string értéket
         }
-        valid = false;//a valid értékét falsera csináljuk
+        valid = false;//a valid értékét falsera rakjuk
+    }
+    return valid//vissza adjuk a valid értékét
+}
+
+
+function validationFormHTMLField(cellElement1,cellElement2, message){//létrehozzuk a függvényt
+    let valid = true//létrehozunk egy booleant változót
+    if(cellElement1.value === "" && cellElement2.value === ""){//ha a megadott element üres akkor belép
+        const parentElement = cellElement1.parentElement;//lekérjük az elementnek a parent elementját
+        const error = parentElement.querySelector('.error');//kiválasztjuk a parent elementben lévő elementet amely tartalmazza az error osztalyt
+        if (error !== null) {//megnézzük hogy az error üres-e
+            error.innerHTML = message;//megadjuk az üzenetet az error.innerhtml-be
+        }
+        valid = false;//a valid értékét falsera rakjuk
+    }
+
+    if(cellElement1.value === "" && cellElement2.value !== undefined){//ha az 1. element üres de a második nem akkor a 2. element colspan-je 2 lesz
+        cellElement2.colSpan = 2;//itt adjuk meg a a 2. elemnt colsapnje 2 legye
+        return valid//vissza adjuk a valid értékét
+    }
+    return valid//vissza adjuk a valid értékét
+}
+
+function simpleValidation(HTMLElementTudos1,HTMLElementTudos2){//létrehozza a simplevalidation függvényt
+    let valid = true;//létrehozunk egy booleant változót
+    if(!validationFormHTMLField(HTMLElementTudos1,HTMLElementTudos2, "Kötelező legalább egy tudóst megadni")){//meghívjuk a validationFormHTMLField függvényt
+        valid = false;//a valid értékét falsera rakjuk
     }
     return valid//vissza adjuk a valid értékét
 }

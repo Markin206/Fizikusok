@@ -64,75 +64,29 @@ const tablaBody = document.createElement('tbody'); // Létrehozzuk a tablebodyt
 tabla.appendChild(tablaBody); // Hozzáadjuk a törzset a táblázathoz
 
 // 1. sor (XVI. század)
-const row1 = document.createElement('tr'); // Létrehozzuk az 1. sort
-tablaBody.appendChild(row1); // Hozzáadjuk a tablebodyhoz
-const terulete1 = document.createElement('td'); // Létrehozzuk az "terulete" cellát
+for(let i = 0;i < fizikusok.length;i++){//végig iterálunk/megyünk az array tömb elemein
+    const currentElement = fizikusok[i];//block szinten definiálok egy változót, amibe beleteszem az array aktuális ciklusváltozó számú elemet
+    const row = document.createElement('tr')//létrehozom a row elemet
+    tabla.appendChild(row);//hozzáadom a row elemet a táblához
 
-terulete1.innerHTML = fizikusok[1].terulete; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row1.appendChild(terulete1); // Hozzáadjuk a sorhoz
+    const terulete = document.createElement('td')//létrehozunk egy szerzo nevű elemet
+    terulete.innerHTML = currentElement.terulete//A cella tartalmához hozzá adjuk a block szinten definiált változót
+    row.appendChild(terulete)//hozzáadom a row elemhez a szerző cellát
 
-const idoszak1 = document.createElement('td'); // Létrehozzuk az "időszak" cellát
-idoszak1.innerHTML = fizikusok[1].idoszak; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row1.appendChild(idoszak1); // Hozzáadjuk a sorhoz
+    const idoszak = document.createElement('td')//létrehozunk egy csapat nevű elemet
+    idoszak.innerHTML = currentElement.idoszak//A cella tartalmához hozzá adjuk a block szinten definiált változót
+    row.appendChild(idoszak)//hozzáadom a row elemhez a csapat cellát
 
-const Kepviselok0_1ok = document.createElement('td'); // Létrehozzuk az "Kepviselok" cellát
-Kepviselok0_1ok.innerHTML = fizikusok[1].kepviselok1; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-Kepviselok0_1ok.colSpan = 2; // Beállítjuk a colspan értéket 2-re
-row1.appendChild(Kepviselok0_1ok); // Hozzáadjuk a sorhoz
+    const kepviselok1 = document.createElement('td')//létrehozunk egy kepviselok1 nevű elemet
+    kepviselok1.innerHTML = currentElement.kepviselok1//A cella tartalmához hozzá adjuk a block szinten definiált változót
+    row.appendChild(kepviselok1)//hozzáadom a row elemhez a kepviselok1 cellát
 
-
-const row2 = document.createElement('tr'); // Létrehozzuk a 2. sort
-tablaBody.appendChild(row2); // Hozzáadjuk a tablebodyhoz
-const terulete2 = document.createElement('td'); // Létrehozzuk az "terulete" cellát
-terulete2.innerHTML = fizikusok[2].terulete; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row2.appendChild(terulete2); // Hozzáadjuk a sorhoz
-
-const idoszak2 = document.createElement('td'); // Létrehozzuk az "időszak" cellát
-idoszak2.innerHTML = fizikusok[2].idoszak; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row2.appendChild(idoszak2); // Hozzáadjuk a sorhoz
-
-const Kepviselok1_1 = document.createElement('td'); // Létrehozzuk a "Képviselő" cellát
-Kepviselok1_1.innerHTML = fizikusok[2].kepviselok1; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row2.appendChild(Kepviselok1_1); // Hozzáadjuk a sorhoz
-
-const Kepviselok1_2 = document.createElement('td'); // Létrehozzuk a "Képviselő" cellát
-Kepviselok1_2.innerHTML = fizikusok[2].kepviselok2; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row2.appendChild(Kepviselok1_2); // Hozzáadjuk a sorhoz
-
-
-const row3 = document.createElement('tr'); // Létrehozzuk a 2. sort
-tablaBody.appendChild(row3); // Hozzáadjuk a tablebodyhoz
-const terulete3 = document.createElement('td'); // Létrehozzuk az "terulete" cellát
-terulete3.innerHTML = fizikusok[3].terulete; //beállítjuk a tartalmat a megadott array objektum tulajdonságára változók értékeire
-row3.appendChild(terulete3); // Hozzáadjuk a sorhoz
-
-const idoszak3 = document.createElement('td'); // Létrehozzuk az "időszak" cellát
-idoszak3.innerHTML = fizikusok[3].idoszak; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row3.appendChild(idoszak3); // Hozzáadjuk a sorhoz
-
-const Kepviselok2_1 = document.createElement('td'); // Létrehozzuk a "Képviselő" cellát
-Kepviselok2_1.innerHTML = fizikusok[3].kepviselok1; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row3.appendChild(Kepviselok2_1); // Hozzáadjuk a sorhoz
-
-const Kepviselok2_2 = document.createElement('td'); // Létrehozzuk a "Képviselő" cellát
-Kepviselok2_2.innerHTML = fizikusok[3].kepviselok2; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row3.appendChild(Kepviselok2_2); // Hozzáadjuk a sorhoz
-
-
-const row4 = document.createElement('tr'); // Létrehozzuk a 2. sort
-tablaBody.appendChild(row4); // Hozzáadjuk a tablebodyhoz
-const terulete4 = document.createElement('td'); // Létrehozzuk az "terulete" cellát
-terulete4.innerHTML = fizikusok[4].terulete; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row4.appendChild(terulete4); // Hozzáadjuk a sorhoz
-
-const idoszak4 = document.createElement('td'); // Létrehozzuk az "időszak" cellát
-idoszak4.innerHTML = fizikusok[4].idoszak; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row4.appendChild(idoszak4); // Hozzáadjuk a sorhoz
-
-const Kepviselok3_1 = document.createElement('td'); // Létrehozzuk a "Képviselő" cellát
-Kepviselok3_1.innerHTML = fizikusok[4].kepviselok1; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row4.appendChild(Kepviselok3_1); // Hozzáadjuk a sorhoz
-
-const Kepviselok3_2 = document.createElement('td'); // Létrehozzuk a "Képviselő" cellát
-Kepviselok3_2.innerHTML = fizikusok[4].kepviselok2; //beállítjuk a tartalmat a megadott array objektum tulajdonságára
-row4.appendChild(Kepviselok3_2); // Hozzáadjuk a sorhoz
+    if(currentElement.kepviselok2 === undefined){//ha a kepviselok2 tartalma üres akkor a mu1-es cella colspanje 2 lesz
+        kepviselok1.colSpan = 2;
+    }
+    else{//ha a mu2 tartalmaz értéket akkor létrehozzuk a kepviselok2 cellát
+        const kepviselok2 = document.createElement('td');//létrehozunk egy kepviselok2 nevű elemet
+        kepviselok2.innerHTML = currentElement.kepviselok2;//A cella tartalmához hozzá adjuk a block szinten definiált változót
+        row.appendChild(kepviselok2)//hozzáadom a row elemhez a kepviselok2 cellát
+    }
+}

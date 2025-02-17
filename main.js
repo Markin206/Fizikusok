@@ -63,6 +63,7 @@ tablaheaderRow.appendChild(Kepviselok); // Hozzáadjuk a tablaheaderRow sorhoz
 const tablaBody = document.createElement('tbody'); // Létrehozzuk a tablebodyt
 tabla.appendChild(tablaBody); // Hozzáadjuk a törzset a táblázathoz
 
+function renderTable(){//függvényt létrehozzuk
 // 1. sor (XVI. század)
 for(let i = 0;i < fizikusok.length;i++){//végig iterálunk/megyünk az array tömb elemein
     const currentElement = fizikusok[i];//block szinten definiálok egy változót, amibe beleteszem az array aktuális ciklusváltozó számú elemet
@@ -89,4 +90,6 @@ for(let i = 0;i < fizikusok.length;i++){//végig iterálunk/megyünk az array t�
         kepviselok2.innerHTML = currentElement.kepviselok2;//A cella tartalmához hozzá adjuk a block szinten definiált változót
         row.appendChild(kepviselok2)//hozzáadom a row elemhez a kepviselok2 cellát
     }
+
 }
+}renderTable()//függvényt meghívom

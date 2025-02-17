@@ -1,11 +1,15 @@
-
+/**
+ * ez lesz a tömb amelyt a header tartalmát eltartalmazza
+ */
 const header = {
     terulete: "Fizika területe",//megadjuk az terulete tulajdonságot és tartalmát feltöltjük egy string értékel
     idoszak: "Időszak",//megadjuk az idoszak tulajdonságot és tartalmát feltöltjük egy string értékel
     kepviselok: "Képviselők"//megadjuk az kepviselok1 tulajdonságot és tartalmát feltöltjük egy string értékel
 }
-
-const fizikusok = [//létrehozzuk a tömböt
+/**
+ * ebben a tömbben lesz a táblázat alap értékei
+ */
+const fizikusok = [
     {
         terulete: "Optika",//megadjuk az terulete tulajdonságot és tartalmát feltöltjük egy string értékel
         idoszak: "XI. Század",//megadjuk az idoszak tulajdonságot és tartalmát feltöltjük egy string értékel
@@ -34,7 +38,9 @@ const fizikusok = [//létrehozzuk a tömböt
         kepviselok2: "Stephen Hawking"//megadjuk az kepviselok2 tulajdonságot és tartalmát feltöltjük egy string értékel
     }
 ]
-
+/**
+ * ez lesz a tömb amely a form alap értékeit kéri
+ */
 const formArray = [//létrehozzuk a tömböt amelynek 3 tulajdonsága lesz label, id, input_type
     {
         label : "Terület megnevezese",//
@@ -63,6 +69,10 @@ const formArray = [//létrehozzuk a tömböt amelynek 3 tulajdonsága lesz label
 const tabla = document.createElement('table'); // Létrehozzuk a táblázatot
 document.body.appendChild(tabla); // Hozzáadjuk a táblázatot a body-hoz
 //----------------------------------------------------------------------------------------- header
+/**
+ * Ezzel a függvényel hozzuk létre magát a headert
+ * @param {Array} headerObj ez az a tömb amely tartalmazza a header tartalmát
+ */
 function renderHeader(headerObj){
 const tablaheader = document.createElement('thead'); // Létrehozzuk a tableheadert (thead)
 tabla.appendChild(tablaheader); // Hozzáadjuk a headert a táblázathoz
@@ -86,6 +96,13 @@ tablaheaderRow.appendChild(Kepviselok); // Hozzáadjuk a tablaheaderRow sorhoz
 const tablaBody = document.createElement('tbody'); // Létrehozzuk a tablebodyt
 tabla.appendChild(tablaBody); // Hozzáadjuk a törzset a táblázathoz
 
+
+/**
+ * ezzel a függvényel hozzuk létre a függvényt
+ * megnézi hogy a 2. képvislő undefined vagy sem
+ * ha mégis akkor az 1. képviselő colspanje 2
+ * @param {Array} fizikusokArray ez lesz az a tömb amely tartalmazza a táblázatt alap elemeit
+ */
 function renderTable(fizikusokArray){//függvényt létrehozzuk
 // 1. sor (XVI. század)
     for(const currentElement of fizikusokArray){//végigiterálunk a cikluson a ciklusváltozó az aktuális elem
@@ -115,7 +132,9 @@ function renderTable(fizikusokArray){//függvényt létrehozzuk
         }
     }
 }
-
+/**
+ * ezzel a függvényel a formot hozom létre
+ */
 function createForm() {//létrehozzuk a függvényt
     const form = document.createElement('form'); //létrehozzuk a form elemet
     const button = document.createElement('button')//létrehozunk aegy gombot
@@ -151,7 +170,11 @@ renderTable(fizikusok)//függvényt meghívom
 
 
 const form = document.querySelector('form');//meghívjuk a form nevű HTML elemet
-
+/**
+ * ez a addeventlistener által müködik a form. Hála ennek a függvénynek
+ * meglehet adni új adatokat
+ * és még megis nézi validációval a helyes-e az inputok
+ */
 form.addEventListener('submit', function(e){
     e.preventDefault()//megakadalyozom, hogy a bongeszo alapertelmezett mukodese lefusson submit eseten
     const HTMLElementFizika = document.getElementById('fizika')//meghívunk egy elementet ID alapján
@@ -188,7 +211,12 @@ form.addEventListener('submit', function(e){
     }
 })
 
-
+/**
+ * E validációs függvényel azt vizsgáljuk hogy a fizika és ido IDvel ellátot inputok üresek. ha igen akkor nem lehet új sort megadni
+ * @param {HTMLElement} HTMLElementFizika ez a 1. input element lesz
+ * @param {HTMLElement} HTMLElementIdoszak  ez a 2. input element lesz
+ * @returns {boolean} ez a valid érték lesz amely által az addeventlistener létretudja hozni az új sort
+ */
 function validatefield(HTMLElementFizika,HTMLElementIdoszak){//létrehozzuk a validációs functiont
     let valid = true;//létrehozzunk egy booleant változót és megadjuk az értéket truera
     /**
@@ -224,7 +252,15 @@ function validatefield(HTMLElementFizika,HTMLElementIdoszak){//létrehozzuk a va
     return valid//vissza adjuk a valid értékét
 }
 
-
+/**
+ * ezzel a függvényel azt nézzük meg hogy mind a tudos1 és tudos2 ID-vel ellátot input ne legyen üresen
+ * ha mégis akkor errort add ki
+ * még azt is megcsinálja hogyha csak a 2.tudóst adtuk meg akkor kepviselok2 colspanje 2 lesz
+ * @param {HTMLElement} cellElement1 ez a 1. element amelyt meglehet adni
+ * @param {HTMLElement} cellElement2 ez a 2. element lesz amelyt meglehet adni
+ * @param {string} message ez az a string amely a errorban tartalmazunk el
+ * @returns {boolean} ez a valid lesz amelyt visszaadunk hogy megnézzük hogy hibás-e
+ */
 function validationFormHTMLField(cellElement1,cellElement2, message){//létrehozzuk a függvényt
     let valid = true//létrehozunk egy booleant változót
     if(cellElement1.value === "" && cellElement2.value === ""){//ha a megadott element üres akkor belép
@@ -243,14 +279,17 @@ function validationFormHTMLField(cellElement1,cellElement2, message){//létrehoz
     return valid//vissza adjuk a valid értékét
 }
 
+/**
+ * ezzel a függvényel meghívjuk a validationFormHTMLField függvényt hogy megvizsgáljuk hogy a
+ * felhasználó nem hagyta ki mindkettő inputot
+ * @param {HTMLElement} HTMLElementTudos1 ez a tudos1 input lesz
+ * @param {HTMLElement} HTMLElementTudos2 ez a tudos2 input lesz
+ * @returns {boolean} ez ugyan úgy valid lesz de ez azért felel hogy egyáltalán tudjon újsort adni a form
+ */
 function simpleValidation(HTMLElementTudos1,HTMLElementTudos2){//létrehozza a simplevalidation függvényt
     let valid = true;//létrehozunk egy booleant változót
     if(!validationFormHTMLField(HTMLElementTudos1,HTMLElementTudos2, "Kötelező legalább egy tudóst megadni")){//meghívjuk a validationFormHTMLField függvényt
         valid = false;//a valid értékét falsera rakjuk
     }
     return valid//vissza adjuk a valid értékét
-}
-
-function renderform(){
-
 }

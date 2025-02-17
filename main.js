@@ -41,32 +41,32 @@ const fizikusok = [//létrehozzuk a tömböt
 const tabla = document.createElement('table'); // Létrehozzuk a táblázatot
 document.body.appendChild(tabla); // Hozzáadjuk a táblázatot a body-hoz
 //----------------------------------------------------------------------------------------- header
-function renderHeader(){
+function renderHeader(headerObj){
 const tablaheader = document.createElement('thead'); // Létrehozzuk a tableheadert (thead)
 tabla.appendChild(tablaheader); // Hozzáadjuk a headert a táblázathoz
 const tablaheaderRow = document.createElement('tr'); // Létrehozzuk a tablaheaderRow sort
 tablaheader.appendChild(tablaheaderRow); // Hozzáadjuk a tablaheaderRow sort a theadhez
 
 const terulete = document.createElement('th'); // Létrehozzuk az "terulete" oszlopot
-terulete.innerHTML = header.terulete; // Beállítjuk a "terulete" szöveget
+terulete.innerHTML = headerObj.terulete; // Beállítjuk a "terulete" tartalmát az objektum tartalmára
 tablaheaderRow.appendChild(terulete); // Hozzáadjuk a tablaheaderRow sorhoz
 
 const idoszak = document.createElement('th'); // Létrehozzuk az "időszak" oszlopot
-idoszak.innerHTML = header.idoszak; // Beállítjuk az "időszak" szöveget
+idoszak.innerHTML = headerObj.idoszak; // Beállítjuk a "időszak" tartalmát az objektum tartalmára
 tablaheaderRow.appendChild(idoszak); // Hozzáadjuk a tablaheaderRow sorhoz
 
 const Kepviselok = document.createElement('th'); // Létrehozzuk az "Kepviselok" oszlopot
-Kepviselok.innerHTML = header.kepviselok; // Beállítjuk az "Kepviselok" szöveget
-Kepviselok.colSpan = 2;
+Kepviselok.innerHTML = headerObj.kepviselok; // Beállítjuk a "kepviselok" tartalmát az objektum tartalmára
+Kepviselok.colSpan = 2;//kepviselok colspanje 2 lesz
 tablaheaderRow.appendChild(Kepviselok); // Hozzáadjuk a tablaheaderRow sorhoz
 }
 //----------------------------------------------------------------------------------------- tbody
 const tablaBody = document.createElement('tbody'); // Létrehozzuk a tablebodyt
 tabla.appendChild(tablaBody); // Hozzáadjuk a törzset a táblázathoz
 
-function renderTable(){//függvényt létrehozzuk
+function renderTable(fizikusokArray){//függvényt létrehozzuk
 // 1. sor (XVI. század)
-    for(const currentElement of fizikusok){//végigiterálunk a cikluson a ciklusváltozó az aktuális elem
+    for(const currentElement of fizikusokArray){//végigiterálunk a cikluson a ciklusváltozó az aktuális elem
         const row = document.createElement('tr')//létrehozom a row elemet
         tabla.appendChild(row);//hozzáadom a row elemet a táblához
 
@@ -94,7 +94,7 @@ function renderTable(){//függvényt létrehozzuk
     }
 }
 renderHeader()//meghívjuk a renderheader függvényt
-renderTable()//függvényt meghívom
+renderTable(fizikusok)//függvényt meghívom
 
 
 const form = document.getElementById('form')//meghívunk egy elementet ID alapján
@@ -117,16 +117,20 @@ form.addEventListener('submit', function(e){
         for(const errorElement of errorHtmlElements){ // Vegigiteralunk a visszakapott errorhtmlelementeken
             errorElement.innerHTML = ''; // toroljuk az aktualis elem tartalmat
         }
+
         const newElement = {
             terulete: fizikaValue,// az uj objektum terulete erteke a fizikaValue lesz
             idoszak: idoszakValue,// az uj objektum idoszak erteke a idoszakValue lesz
             kepviselok1: tudos1Value,// az uj objektum kepviselok1 erteke a tudos1Value lesz
             kepviselok2: tudos2Value// az uj objektum kepviselok2 erteke a tudos2Value lesz
         }
+
         if(validatefield(HTMLElementFizika, HTMLElementIdoszak)){//ha a validáció sikeres akkor hozzá adjuk az elemet a táblázathoz ha nem akkor nem
             fizikusok.push(newElement)//hozzáadom az arrayhez az új objektumot
             tabla.innerHTML = "";//kiürítem a táblázatott
-            renderTable()//A táblázatott újrameghívom hogy fríssítsem
+            renderHeader(header)
+            renderTable(fizikusok)//A táblázatott újrameghívom hogy fríssítsem
+            form.reset()
         }
     }
 })

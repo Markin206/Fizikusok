@@ -35,6 +35,28 @@ const fizikusok = [//létrehozzuk a tömböt
     }
 ]
 
+const formArray = [//létrehozzuk a tömböt amelynek 3 tulajdonsága lesz label, id, input_type
+    {
+        label : "Terület megnevezese",//
+        id: "fizika",
+        input_type: "text"
+    },
+    {
+        label : "Időszak:",
+        id: "ido",
+        input_type: "text"
+    },
+    {
+        label : "Első tudós:",
+        id: "tudos1",
+        input_type: "text"
+    },
+    {
+        label : "Második tudós:",
+        id: "tudos2",
+        input_type: "text"
+    }
+]
 
 
 
@@ -93,11 +115,42 @@ function renderTable(fizikusokArray){//függvényt létrehozzuk
         }
     }
 }
-renderHeader()//meghívjuk a renderheader függvényt
+
+function createForm() {//létrehozzuk a függvényt
+    const form = document.createElement('form'); //létrehozzuk a form elemet
+    const button = document.createElement('button')//létrehozunk aegy gombot
+    button.innerHTML = "Hozzáadás";//a gombg tartalmá feltöltjük string elementel
+    for(const formElement of formArray) {//végig iterálunk a formArray tömbön
+        const formDiv = document.createElement('div');//létrehozunk egy div-et
+        const formLabel = document.createElement('label');//létrehozunk egy labelt
+        const formInput = document.createElement('input');//létrehozunk egy inputot
+        const formError = document.createElement('div');//létrehozunk egy divet
+
+        formLabel.innerHTML = formElement.label;//a label tartalmát feltöltjük
+        formInput.type = formElement.input_type;//megadjuk az input tipusát
+        formInput.name = formElement.id;//megadjuk az input nevét
+        formInput.id = formElement.id;//megadjuk az input ID-ját
+        formError.classList.add("error");//a divhez hozzá adjuk az error osztályt
+
+        formDiv.appendChild(formLabel);//hozzáadjuk a labelt a divhez
+        formDiv.appendChild(document.createElement('br'));//hozzáadjuk a divhez az újonnan létrehozzott vonal törést
+        formDiv.appendChild(formInput);//hozzáadjuk a inputot a divhez
+        formDiv.appendChild(document.createElement('br'));//hozzáadjuk a divhez az újonnan létrehozzott vonal törést
+        formDiv.appendChild(formError);//hozzáadjuk a error divet a divhez
+        formDiv.appendChild(document.createElement('br'));//hozzáadjuk a divhez az újonnan létrehozzott vonal törést
+        form.appendChild(formDiv);//hozzáadjuk a divet a formhoz
+    }
+    form.appendChild(button)//hozzáadjuk a gombot a formhoz
+    document.body.appendChild(form);//hozzáadjuk a weboldal testéhez a formot
+}
+createForm();//meghívjuk a függvényt
+renderHeader(header)//meghívjuk a renderheader függvényt
 renderTable(fizikusok)//függvényt meghívom
 
 
-const form = document.getElementById('form')//meghívunk egy elementet ID alapján
+
+
+const form = document.querySelector('form');//meghívjuk a form nevű HTML elemet
 
 form.addEventListener('submit', function(e){
     e.preventDefault()//megakadalyozom, hogy a bongeszo alapertelmezett mukodese lefusson submit eseten
@@ -196,4 +249,8 @@ function simpleValidation(HTMLElementTudos1,HTMLElementTudos2){//létrehozza a s
         valid = false;//a valid értékét falsera rakjuk
     }
     return valid//vissza adjuk a valid értékét
+}
+
+function renderform(){
+
 }

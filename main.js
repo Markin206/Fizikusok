@@ -41,6 +41,7 @@ const fizikusok = [//létrehozzuk a tömböt
 const tabla = document.createElement('table'); // Létrehozzuk a táblázatot
 document.body.appendChild(tabla); // Hozzáadjuk a táblázatot a body-hoz
 //----------------------------------------------------------------------------------------- header
+function renderHeader(){
 const tablaheader = document.createElement('thead'); // Létrehozzuk a tableheadert (thead)
 tabla.appendChild(tablaheader); // Hozzáadjuk a headert a táblázathoz
 const tablaheaderRow = document.createElement('tr'); // Létrehozzuk a tablaheaderRow sort
@@ -58,7 +59,7 @@ const Kepviselok = document.createElement('th'); // Létrehozzuk az "Kepviselok"
 Kepviselok.innerHTML = header.kepviselok; // Beállítjuk az "Kepviselok" szöveget
 Kepviselok.colSpan = 2;
 tablaheaderRow.appendChild(Kepviselok); // Hozzáadjuk a tablaheaderRow sorhoz
-
+}
 //----------------------------------------------------------------------------------------- tbody
 const tablaBody = document.createElement('tbody'); // Létrehozzuk a tablebodyt
 tabla.appendChild(tablaBody); // Hozzáadjuk a törzset a táblázathoz
@@ -92,6 +93,7 @@ function renderTable(){//függvényt létrehozzuk
         }
     }
 }
+renderHeader()//meghívjuk a renderheader függvényt
 renderTable()//függvényt meghívom
 
 
